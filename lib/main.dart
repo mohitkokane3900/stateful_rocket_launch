@@ -26,15 +26,47 @@ class LaunchController extends StatefulWidget {
 class _LaunchControllerState extends State<LaunchController> {
   int _counter = 0;
 
+  void _ignite() {
+    setState(() {
+      if (_counter < 100) _counter++;
+    });
+  }
+
+  void _abort() {
+    setState(() {
+      if (_counter > 0) _counter--;
+    });
+  }
+
+  void _reset() {
+    setState(() {
+      _counter = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Rocket Launch Controller')),
-      body: Center(
-        child: Text(
-          '$_counter',
-          style: const TextStyle(fontSize: 64, fontWeight: FontWeight.w700),
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            '$_counter',
+            style: const TextStyle(fontSize: 64, fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: 24),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(onPressed: _ignite, child: const Text('Ignite')),
+              const SizedBox(width: 12),
+              ElevatedButton(onPressed: _abort, child: const Text('Abort')),
+              const SizedBox(width: 12),
+              ElevatedButton(onPressed: _reset, child: const Text('Reset')),
+            ],
+          ),
+        ],
       ),
     );
   }
