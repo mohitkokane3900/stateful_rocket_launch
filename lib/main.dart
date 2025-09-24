@@ -44,6 +44,12 @@ class _LaunchControllerState extends State<LaunchController> {
     });
   }
 
+  Color _numberColor() {
+    if (_counter == 0) return Colors.red;
+    if (_counter > 50) return Colors.green;
+    return Colors.orange;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +59,23 @@ class _LaunchControllerState extends State<LaunchController> {
         children: [
           Text(
             '$_counter',
-            style: const TextStyle(fontSize: 64, fontWeight: FontWeight.w700),
+            style: TextStyle(
+              fontSize: 64,
+              fontWeight: FontWeight.w700,
+              color: _numberColor(),
+            ),
+          ),
+          const SizedBox(height: 24),
+          Slider(
+            min: 0,
+            max: 100,
+            divisions: 100,
+            value: _counter.toDouble(),
+            onChanged: (v) {
+              setState(() {
+                _counter = v.toInt();
+              });
+            },
           ),
           const SizedBox(height: 24),
           Row(
